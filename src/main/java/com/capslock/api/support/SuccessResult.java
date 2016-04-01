@@ -11,5 +11,5 @@ public final class SuccessResult extends Result {
         //no instance
     }
 
-    public static final SuccessResult singleton = new SuccessResult();
+    public static final SuccessResult SINGLETON = new SuccessResult();
 }

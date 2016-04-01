@@ -28,6 +28,14 @@ public class AccountController {
         }
 
         accountService.register(name, email, password);
-        return SuccessResult.singleton;
+        return SuccessResult.SINGLETON;
+    }
+
+    @RequestMapping(value = "/login")
+    public Result login(@RequestParam("email") String email, @RequestParam("password") String password) {
+        if (email.isEmpty() || password.isEmpty()) {
+            throw new ServerException(ResultCode.BAD_REQUEST, "name or email or password empty");
+        }
+        return SuccessResult.SINGLETON;
     }
 }
