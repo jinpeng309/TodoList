@@ -6,6 +6,8 @@ import com.capslock.api.support.Result;
 import com.capslock.api.support.ResultCode;
 import com.capslock.api.support.SuccessResult;
 import com.capslock.domain.Account;
+import com.capslock.dto.AccountIdDto;
+import com.capslock.mapper.AccountMapper;
 import com.capslock.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +32,8 @@ public class AccountController {
         }
 
         final Account account = accountService.register(name, email, password);
-        return SuccessResult.SINGLETON;
+        final AccountIdDto accountIdDto = AccountMapper.accountToAccountId(account);
+        return new DataResult<>(accountIdDto);
     }
 
     @RequestMapping(value = "/login")
