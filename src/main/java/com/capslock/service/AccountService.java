@@ -28,7 +28,6 @@ public class AccountService {
     public Account register(final String name, final String email, final String passWord) {
 
         if (accountDao.findByEmail(email) != null) {
-            System.out.println(accountDao.findByEmail(email));
             throw new ServerException(ResultCode.BAD_REQUEST, "Email already registered");
         }
 
@@ -41,7 +40,12 @@ public class AccountService {
     }
 
     public long login(final String email, final String password) {
-        final Optional accountOptional = Optional.ofNullable(accountDao.findByEmail(email));
+        final Optional<Account> account = Optional.ofNullable(accountDao.findByEmailAndHashPassword(email, password));
+        logger.info(account.toString());
+        return account
+                .map(Account::getId)
+                .orElseThrow(() -> new ServerException(ResultCode.BAD_REQUEST, "Invalid password or email"));
+
     }
 
     private static String hashPassword(final String password) {

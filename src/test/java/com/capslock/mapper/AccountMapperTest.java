@@ -20,7 +20,7 @@ public class AccountMapperTest {
         account.setEmail(email);
         account.setName(name);
 
-        final AccountIdDto dto = AccountMapper.accountToAccountId(account);
+        final AccountIdDto dto = new AccountMapper().accountToAccountId(account);
         assertThat(dto.getId()).isEqualTo(id);
     }
 

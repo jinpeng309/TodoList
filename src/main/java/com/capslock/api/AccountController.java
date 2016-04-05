@@ -4,7 +4,6 @@ import com.capslock.api.error.ServerException;
 import com.capslock.api.support.DataResult;
 import com.capslock.api.support.Result;
 import com.capslock.api.support.ResultCode;
-import com.capslock.api.support.SuccessResult;
 import com.capslock.domain.Account;
 import com.capslock.dto.AccountIdDto;
 import com.capslock.mapper.AccountMapper;
@@ -23,6 +22,8 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private AccountMapper accountMapper;
 
     @RequestMapping(value = "/register")
     public Result register(@RequestParam("email") String email, @RequestParam("password") String password,
@@ -32,7 +33,7 @@ public class AccountController {
         }
 
         final Account account = accountService.register(name, email, password);
-        final AccountIdDto accountIdDto = AccountMapper.accountToAccountId(account);
+        final AccountIdDto accountIdDto = accountMapper.accountToAccountId(account);
         return new DataResult<>(accountIdDto);
     }
 

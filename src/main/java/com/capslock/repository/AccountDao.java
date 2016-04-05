@@ -8,4 +8,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface AccountDao extends CrudRepository<Account, Long> {
     Account findByEmail(final String email);
+    Account findByEmailAndHashPassword(final String email, final String hashPassword);
 }
