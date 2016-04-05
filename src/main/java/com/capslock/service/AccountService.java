@@ -40,7 +40,8 @@ public class AccountService {
     }
 
     public long login(final String email, final String password) {
-        final Optional<Account> account = Optional.ofNullable(accountDao.findByEmailAndHashPassword(email, password));
+        final Optional<Account> account = Optional.ofNullable(
+                accountDao.findByEmailAndHashPassword(email, hashPassword(password)));
         logger.info(account.toString());
         return account
                 .map(Account::getId)
