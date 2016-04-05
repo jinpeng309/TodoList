@@ -23,7 +23,7 @@ public class AccountService {
     private AccountDao accountDao;
 
     @Transactional
-    public void register(final String name, final String email, final String passWord) {
+    public Account register(final String name, final String email, final String passWord) {
 
         if (accountDao.findByEmail(email) != null) {
             System.out.println(accountDao.findByEmail(email));
@@ -35,10 +35,10 @@ public class AccountService {
         account.setEmail(email);
         account.setHashPassword(hashPassword(passWord));
 
-        accountDao.save(account);
+        return accountDao.save(account);
     }
 
-    public void login(final String email, final String passWord){
+    public void login(final String email, final String passWord) {
     }
 
     private static String hashPassword(final String password) {

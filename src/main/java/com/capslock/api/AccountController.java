@@ -1,9 +1,11 @@
 package com.capslock.api;
 
 import com.capslock.api.error.ServerException;
+import com.capslock.api.support.DataResult;
 import com.capslock.api.support.Result;
 import com.capslock.api.support.ResultCode;
 import com.capslock.api.support.SuccessResult;
+import com.capslock.domain.Account;
 import com.capslock.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +29,7 @@ public class AccountController {
             throw new ServerException(ResultCode.BAD_REQUEST, "name or email or password empty");
         }
 
-        accountService.register(name, email, password);
+        final Account account = accountService.register(name, email, password);
         return SuccessResult.SINGLETON;
     }
 
