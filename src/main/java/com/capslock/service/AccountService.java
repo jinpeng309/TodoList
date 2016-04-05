@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.DigestUtils;
 
+import java.util.Optional;
+
 /**
  * Created by capslock.
  */
@@ -38,7 +40,8 @@ public class AccountService {
         return accountDao.save(account);
     }
 
-    public void login(final String email, final String passWord) {
+    public long login(final String email, final String password) {
+        final Optional accountOptional = Optional.ofNullable(accountDao.findByEmail(email));
     }
 
     private static String hashPassword(final String password) {

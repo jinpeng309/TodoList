@@ -41,6 +41,9 @@ public class AccountController {
         if (email.isEmpty() || password.isEmpty()) {
             throw new ServerException(ResultCode.BAD_REQUEST, "name or email or password empty");
         }
-        return SuccessResult.SINGLETON;
+        final long uid = accountService.login(email, password);
+        final AccountIdDto accountIdDto = new AccountIdDto();
+        accountIdDto.setId(uid);
+        return new DataResult<>(accountIdDto);
     }
 }
