@@ -2,7 +2,7 @@ package com.capslock.service;
 
 import com.capslock.api.error.ServerException;
 import com.capslock.api.support.ResultCode;
-import com.capslock.domain.Account;
+import com.capslock.domain.User;
 import com.capslock.repository.AccountDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,26 +25,27 @@ public class AccountService {
     private AccountDao accountDao;
 
     @Transactional
-    public Account register(final String name, final String email, final String passWord) {
+    public User register(final String name, final String email, final String passWord) {
 
         if (accountDao.findByEmail(email) != null) {
             throw new ServerException(ResultCode.BAD_REQUEST, "Email already registered");
         }
 
-        final Account account = new Account();
-        account.setName(name);
-        account.setEmail(email);
-        account.setHashPassword(hashPassword(passWord));
+        final User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setHashPassword(hashPassword(passWord));
 
-        return accountDao.save(account);
+        return accountDao.save(user);
     }
 
     public long login(final String email, final String password) {
-        final Optional<Account> account = Optional.ofNullable(
+        final Optional<User> account = Optional.ofNullable(
                 accountDao.findByEmailAndHashPassword(email, hashPassword(password)));
+
         logger.info(account.toString());
         return account
-                .map(Account::getId)
+                .map(User::getId)
                 .orElseThrow(() -> new ServerException(ResultCode.BAD_REQUEST, "Invalid password or email"));
 
     }

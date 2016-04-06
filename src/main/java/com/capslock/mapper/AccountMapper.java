@@ -1,6 +1,6 @@
 package com.capslock.mapper;
 
-import com.capslock.domain.Account;
+import com.capslock.domain.User;
 import com.capslock.dto.AccountIdDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public final class AccountMapper {
     @Autowired
     private ModelMapper mapper;
 
-    public AccountIdDto accountToAccountId(final Account account) {
-        return mapper.map(account, AccountIdDto.class);
+    public AccountIdDto accountToAccountId(final User user) {
+        return mapper.map(user, AccountIdDto.class);
     }
 }

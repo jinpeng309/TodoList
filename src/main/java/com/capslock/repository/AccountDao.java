@@ -1,12 +1,12 @@
 package com.capslock.repository;
 
-import com.capslock.domain.Account;
+import com.capslock.domain.User;
 import org.springframework.data.repository.CrudRepository;
 
 /**
  * Created by capslock.
  */
-public interface AccountDao extends CrudRepository<Account, Long> {
-    Account findByEmail(final String email);
-    Account findByEmailAndHashPassword(final String email, final String hashPassword);
+public interface AccountDao extends CrudRepository<User, Long> {
+    User findByEmail(final String email);
+    User findByEmailAndHashPassword(final String email, final String hashPassword);
 }

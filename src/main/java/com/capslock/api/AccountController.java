@@ -4,7 +4,7 @@ import com.capslock.api.error.ServerException;
 import com.capslock.api.support.DataResult;
 import com.capslock.api.support.Result;
 import com.capslock.api.support.ResultCode;
-import com.capslock.domain.Account;
+import com.capslock.domain.User;
 import com.capslock.dto.AccountIdDto;
 import com.capslock.mapper.AccountMapper;
 import com.capslock.service.AccountService;
@@ -32,8 +32,8 @@ public class AccountController {
             throw new ServerException(ResultCode.BAD_REQUEST, "name or email or password empty");
         }
 
-        final Account account = accountService.register(name, email, password);
-        final AccountIdDto accountIdDto = accountMapper.accountToAccountId(account);
+        final User user = accountService.register(name, email, password);
+        final AccountIdDto accountIdDto = accountMapper.accountToAccountId(user);
         return new DataResult<>(accountIdDto);
     }
 
