@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by capslock.
  */
 @RestController
-@RequestMapping(value = "/accounts")
-public class AccountController {
+@RequestMapping(value = "/user")
+public class UserController {
 
     @Autowired
     private UserService userService;

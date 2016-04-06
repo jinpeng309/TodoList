@@ -1,6 +1,6 @@
 package com.capslock;
 
-import com.capslock.api.AccountController;
+import com.capslock.api.UserController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,8 +23,8 @@ public class TodoListApplicationTests {
         final String password = "PASSWORD";
         final String name = "NAME";
 
-        final AccountController accountController = new AccountController();
-        accountController.register(email, password, name);
+        final UserController userController = new UserController();
+        userController.register(email, password, name);
     }
 
 }
