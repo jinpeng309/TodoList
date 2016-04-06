@@ -5,9 +5,9 @@ import com.capslock.api.support.DataResult;
 import com.capslock.api.support.Result;
 import com.capslock.api.support.ResultCode;
 import com.capslock.domain.User;
-import com.capslock.dto.AccountIdDto;
-import com.capslock.mapper.AccountMapper;
-import com.capslock.service.AccountService;
+import com.capslock.dto.UserIdDto;
+import com.capslock.mapper.UserMapper;
+import com.capslock.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
 
     @Autowired
-    private AccountService accountService;
+    private UserService userService;
     @Autowired
-    private AccountMapper accountMapper;
+    private UserMapper userMapper;
 
     @RequestMapping(value = "/register")
     public Result register(@RequestParam("email") String email, @RequestParam("password") String password,
@@ -32,9 +32,9 @@ public class AccountController {
             throw new ServerException(ResultCode.BAD_REQUEST, "name or email or password empty");
         }
 
-        final User user = accountService.register(name, email, password);
-        final AccountIdDto accountIdDto = accountMapper.accountToAccountId(user);
-        return new DataResult<>(accountIdDto);
+        final User user = userService.register(name, email, password);
+        final UserIdDto userIdDto = userMapper.accountToAccountId(user);
+        return new DataResult<>(userIdDto);
     }
 
     @RequestMapping(value = "/login")
@@ -42,9 +42,9 @@ public class AccountController {
         if (email.isEmpty() || password.isEmpty()) {
             throw new ServerException(ResultCode.BAD_REQUEST, "name or email or password empty");
         }
-        final long uid = accountService.login(email, password);
-        final AccountIdDto accountIdDto = new AccountIdDto();
-        accountIdDto.setId(uid);
-        return new DataResult<>(accountIdDto);
+        final long uid = userService.login(email, password);
+        final UserIdDto userIdDto = new UserIdDto();
+        userIdDto.setId(uid);
+        return new DataResult<>(userIdDto);
     }
 }

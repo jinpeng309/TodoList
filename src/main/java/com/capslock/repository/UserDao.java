@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * Created by capslock.
  */
-public interface AccountDao extends CrudRepository<User, Long> {
+public interface UserDao extends CrudRepository<User, Long> {
     User findByEmail(final String email);
     User findByEmailAndHashPassword(final String email, final String hashPassword);
 }

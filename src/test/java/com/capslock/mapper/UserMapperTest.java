@@ -1,7 +1,7 @@
 package com.capslock.mapper;
 
 import com.capslock.domain.User;
-import com.capslock.dto.AccountIdDto;
+import com.capslock.dto.UserIdDto;
 import org.junit.Test;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -20,7 +20,7 @@ public class UserMapperTest {
         user.setEmail(email);
         user.setName(name);
 
-        final AccountIdDto dto = new AccountMapper().accountToAccountId(user);
+        final UserIdDto dto = new UserMapper().accountToAccountId(user);
         assertThat(dto.getId()).isEqualTo(id);
     }
 

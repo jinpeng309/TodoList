@@ -3,7 +3,7 @@ package com.capslock.service;
 import com.capslock.api.error.ServerException;
 import com.capslock.api.support.ResultCode;
 import com.capslock.domain.User;
-import com.capslock.repository.AccountDao;
+import com.capslock.repository.UserDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +18,16 @@ import java.util.Optional;
  * Created by capslock.
  */
 @Service
-public class AccountService {
-    private final Logger logger = LoggerFactory.getLogger(AccountService.class);
+public class UserService {
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
-    private AccountDao accountDao;
+    private UserDao userDao;
 
     @Transactional
     public User register(final String name, final String email, final String passWord) {
 
-        if (accountDao.findByEmail(email) != null) {
+        if (userDao.findByEmail(email) != null) {
             throw new ServerException(ResultCode.BAD_REQUEST, "Email already registered");
         }
 
@@ -36,12 +36,12 @@ public class AccountService {
         user.setEmail(email);
         user.setHashPassword(hashPassword(passWord));
 
-        return accountDao.save(user);
+        return userDao.save(user);
     }
 
     public long login(final String email, final String password) {
         final Optional<User> account = Optional.ofNullable(
-                accountDao.findByEmailAndHashPassword(email, hashPassword(password)));
+                userDao.findByEmailAndHashPassword(email, hashPassword(password)));
 
         logger.info(account.toString());
         return account
